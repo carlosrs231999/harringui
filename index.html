@@ -1,0 +1,105 @@
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Estación 1: Andén 9¾</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel&family=Roboto&display=swap" rel="stylesheet"/>
+  <style>
+    body {
+      font-family: 'Roboto', sans-serif;
+      margin: 0;
+      background: linear-gradient(to bottom, #000000, #2c2c2c);
+      color: #fdf3d4;
+    }
+    header {
+      background-image: url('harry-potter.jpg');
+      background-size: cover;
+      background-position: center;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      position: relative;
+    }
+    header h1 {
+      font-family: 'Cinzel', serif;
+      font-size: 3.5em;
+      color: #ffcc00;
+      text-shadow: 0 0 10px black;
+    }
+    header p {
+      font-size: 1.2em;
+      max-width: 700px;
+      color: #fff;
+      text-shadow: 0 0 5px #000;
+    }
+    #music-btn {
+      position: absolute;
+      bottom: 20px;
+      right: 20px;
+      background: #ffcc00;
+      border: none;
+      border-radius: 50%;
+      width: 50px;
+      height: 50px;
+      font-size: 1.4em;
+      cursor: pointer;
+      box-shadow: 0 0 10px rgba(0,0,0,0.5);
+    }
+    section {
+      padding: 40px 20px;
+      max-width: 900px;
+      margin: auto;
+    }
+    footer {
+      text-align: center;
+      font-size: 0.9em;
+      padding: 20px;
+      color: #aaa;
+      border-top: 1px solid #333;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Estación 1: Andén 9¾</h1>
+    <p>Un tren mágico espera, y solo tú decides si emprender este viaje encantado junto a mí.</p>
+    <button id="music-btn" title="Presiona para escuchar 🎵">🎵</button>
+    <audio id="bg-music" preload="auto" loop>
+      <source src="hogwarts-express-inspired-by-harry-potter-305578.mp3" type="audio/mpeg">
+    </audio>
+  </header>
+
+  <section>
+    <h2>Bienvenida a un mundo mágico</h2>
+    <p>Desde este andén parte más que un tren. Parte una historia entre tú y yo, escrita con hechizos, cartas y aventuras sin mapa.</p>
+  </section>
+
+  <footer>Hecho con magia por tu futuro compañero de aventuras ✨</footer>
+
+  <script>
+    const music = document.getElementById('bg-music');
+    const btn = document.getElementById('music-btn');
+    let isPlaying = false;
+
+    btn.addEventListener('mousedown', () => {
+      if (!isPlaying) {
+        music.play().then(() => {
+          isPlaying = true;
+          btn.textContent = '🔇';
+        }).catch(err => {
+          console.warn('No se pudo reproducir audio automáticamente:', err);
+        });
+      } else {
+        music.pause();
+        isPlaying = false;
+        btn.textContent = '🎵';
+      }
+    });
+  </script>
+</body>
+</html>
