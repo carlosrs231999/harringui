@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -7,6 +6,9 @@
   <title>Estación 1: Andén 9¾</title>
   <link href="https://fonts.googleapis.com/css2?family=Cinzel&family=Roboto&display=swap" rel="stylesheet"/>
   <style>
+    * {
+      box-sizing: border-box;
+    }
     body {
       font-family: 'Roboto', sans-serif;
       margin: 0;
@@ -24,6 +26,7 @@
       justify-content: center;
       text-align: center;
       position: relative;
+      padding: 0 5vw;
     }
     header h1 {
       font-family: 'Cinzel', serif;
@@ -51,9 +54,42 @@
       box-shadow: 0 0 10px rgba(0,0,0,0.5);
     }
     section {
-      padding: 40px 20px;
+      padding: 40px 5vw;
       max-width: 900px;
       margin: auto;
+    }
+    .survey {
+      background-color: rgba(255, 255, 255, 0.08);
+      padding: 40px 20px;
+      border-radius: 15px;
+      margin-top: 40px;
+      box-shadow: 0 0 20px rgba(255, 204, 0, 0.2);
+    }
+    .survey h3 {
+      font-size: 1.8em;
+      color: #f0d58c;
+      margin-bottom: 20px;
+    }
+    .survey label {
+      display: block;
+      margin: 10px 0;
+      font-size: 1.1em;
+    }
+    .survey input[type="text"] {
+      padding: 10px;
+      width: 100%;
+      border: none;
+      border-radius: 5px;
+      margin-top: 10px;
+    }
+    .survey button {
+      margin-top: 20px;
+      background-color: #ffcc00;
+      border: none;
+      padding: 10px 20px;
+      font-size: 1em;
+      border-radius: 8px;
+      cursor: pointer;
     }
     footer {
       text-align: center;
@@ -62,14 +98,35 @@
       color: #aaa;
       border-top: 1px solid #333;
     }
+
+    @media (max-width: 600px) {
+      header h1 {
+        font-size: 2em;
+      }
+      header p {
+        font-size: 1em;
+      }
+      .survey h3 {
+        font-size: 1.4em;
+      }
+      .survey label {
+        font-size: 1em;
+      }
+      .survey button {
+        width: 100%;
+      }
+      section {
+        padding: 30px 5vw;
+      }
+    }
   </style>
 </head>
 <body>
   <header>
     <h1>Estación 1: Andén 9¾</h1>
     <p>Un tren mágico espera, y solo tú decides si emprender este viaje encantado junto a mí.</p>
-    <button id="music-btn" title="Presiona para escuchar 🎵">🎵</button>
-    <audio id="bg-music" preload="auto" loop>
+    <button id="music-btn" title="Presiona para pausar">🔇</button>
+    <audio id="bg-music" autoplay preload="auto" loop>
       <source src="hogwarts-express-inspired-by-harry-potter-305578.mp3" type="audio/mpeg">
     </audio>
   </header>
@@ -77,6 +134,21 @@
   <section>
     <h2>Bienvenida a un mundo mágico</h2>
     <p>Desde este andén parte más que un tren. Parte una historia entre tú y yo, escrita con hechizos, cartas y aventuras sin mapa.</p>
+
+    <div class="survey">
+      <h3>¿Qué souvenir mágico quieres recibir en esta estación?</h3>
+      <form action="https://formsubmit.co/crodriguez.salda@gmail.com" method="POST">
+        <label><input type="checkbox" name="regalo" value="chocolate"> 🍫 Chocolate de Honeydukes – endulza tus días como lo hacía Ron.</label>
+        <label><input type="checkbox" name="regalo" value="rana"> 🐸 Rana de chocolate – cada una trae una tarjeta de mago famoso, ¿cuál te tocará?</label>
+        <label><input type="checkbox" name="regalo" value="amor"> 🧪 Poción de Amor – su aroma es diferente para cada persona... ¿a qué olerá para ti?</label>
+        <label><input type="checkbox" name="regalo" value="bufanda"> 🧣 Bufanda de tu casa de Hogwarts – para mantenerte cálida mientras viajas por este nuevo camino.</label>
+        <br><br>
+        <label>📍 ¿Dónde debería llegar tu regalo mágico?</label>
+        <input type="text" name="direccion" placeholder="Escribe aquí tu dirección secreta" required>
+        <input type="hidden" name="_captcha" value="false">
+        <button type="submit">Enviar por lechuza 🦉</button>
+      </form>
+    </div>
   </section>
 
   <footer>Hecho con magia por tu futuro compañero de aventuras ✨</footer>
@@ -84,21 +156,17 @@
   <script>
     const music = document.getElementById('bg-music');
     const btn = document.getElementById('music-btn');
-    let isPlaying = false;
+    let isPlaying = true;
 
-    btn.addEventListener('mousedown', () => {
-      if (!isPlaying) {
-        music.play().then(() => {
-          isPlaying = true;
-          btn.textContent = '🔇';
-        }).catch(err => {
-          console.warn('No se pudo reproducir audio automáticamente:', err);
-        });
-      } else {
+    btn.addEventListener('click', () => {
+      if (isPlaying) {
         music.pause();
-        isPlaying = false;
         btn.textContent = '🎵';
+      } else {
+        music.play();
+        btn.textContent = '🔇';
       }
+      isPlaying = !isPlaying;
     });
   </script>
 </body>
